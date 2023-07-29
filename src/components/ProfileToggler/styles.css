@@ -1,0 +1,13 @@
+.profile-img {
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-elements {
+  font-size: 14px;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
