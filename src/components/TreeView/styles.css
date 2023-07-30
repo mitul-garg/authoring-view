@@ -1,0 +1,9 @@
+.parent-container {
+  display: flex;
+  justify-content: space-between;
+  place-items: center;
+}
+
+.plus-icon {
+  font-size: 15px;
+}
