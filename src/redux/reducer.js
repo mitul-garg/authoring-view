@@ -9,7 +9,7 @@ export const reducer = (state, action) => {
       title: "Container " + state.count,
     };
 
-    let newContainers = new Object(state.containers);
+    let newContainers = { ...state.containers };
 
     for (let i = 0; i < newContainers.children.length; i++) {
       if (newContainers.children[i].id === id) {
@@ -37,7 +37,7 @@ export const reducer = (state, action) => {
       children: [],
     };
 
-    let newContainers = new Object(state.containers);
+    let newContainers = { ...state.containers };
 
     newContainers.children.push(newNode);
 
