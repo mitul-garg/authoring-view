@@ -10,6 +10,7 @@ import "./styles.css";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // toggling the sidebar state as true or false based on the old state
   const toggleSidebar = () => {
     setIsOpen((state) => !state);
   };

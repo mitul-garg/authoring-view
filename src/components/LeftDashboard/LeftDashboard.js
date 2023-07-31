@@ -8,6 +8,7 @@ import TreeViewTab from "../TreeView/TreeViewTab";
 const LeftDashboard = () => {
   const [value, setValue] = useState("all");
 
+  // changing the current tab based on the clicked value
   const handleChange = (event, newValue) => setValue(newValue);
 
   const renderSwitch = () => {

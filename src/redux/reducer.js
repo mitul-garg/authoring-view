@@ -11,12 +11,14 @@ export const reducer = (state, action) => {
 
     let newContainers = { ...state.containers };
 
+    // a new node can be inserted directly if the parent is root
     if (id === "root") {
       newContainers.children.push(newNode);
     } else {
       insert(newContainers, newNode, id);
     }
 
+    // storing the updated state in local storage
     localStorage.setItem(
       "state",
       JSON.stringify({
@@ -39,12 +41,14 @@ export const reducer = (state, action) => {
 
     let newContainers = { ...state.containers };
 
+    // a new node can be inserted directly if the parent is root
     if (id === "root") {
       newContainers.children.push(newNode);
     } else {
       insert(newContainers, newNode, id);
     }
 
+    // storing the updated state in local storage
     localStorage.setItem(
       "state",
       JSON.stringify({
@@ -59,6 +63,8 @@ export const reducer = (state, action) => {
   return { ...state };
 };
 
+// the node needs to inserted recursively in the targeted container
+// the function calls itself for every children present in a parent node
 const insert = (containers, node, id) => {
   if (containers.id === id) {
     containers.children.push(node);

@@ -10,6 +10,8 @@ import { connect } from "react-redux";
 import { ADD_LEAF, ADD_CONTAINER } from "../../redux/actions";
 
 const TreeViewTab = ({ containers, dispatch, count }) => {
+  // for ensuring that the expand or collapse
+  // does not work on clicking the label
   const clickHandler = useCallback((event) => {
     event.stopPropagation();
     if (event.target instanceof Element) {
@@ -20,6 +22,7 @@ const TreeViewTab = ({ containers, dispatch, count }) => {
     }
   }, []);
 
+  // recursively rendering the TreeItems
   const renderTree = (nodes) => {
     const isParent = Array.isArray(nodes.children);
     if (!isParent)
@@ -31,6 +34,8 @@ const TreeViewTab = ({ containers, dispatch, count }) => {
         ></TreeItem>
       );
 
+    // parent container will have additional icons
+    // hence rendered conditionally
     return (
       <TreeItem
         key={nodes.id}
@@ -82,17 +87,12 @@ const TreeViewTab = ({ containers, dispatch, count }) => {
   );
 };
 
+// for providing state to the component from redux store
 const mapStateToProps = (store) => {
   return {
     containers: store.containers,
     count: store.count,
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addLeaf: (id) => dispatch({ type: ADD_LEAF, payload: { id } }),
-//   };
-// };
 
 export default connect(mapStateToProps)(TreeViewTab);

@@ -10,8 +10,10 @@ import "./styles.css";
 const ProfileToggler = () => {
   const [popover, setPopover] = useState(null);
 
+  // making the popover visible on clicking the profile image
   const handleClick = (event) => setPopover(event.currentTarget);
 
+  // closing the popover
   const handleClose = () => setPopover(null);
 
   const id = Boolean(popover) ? "popover" : undefined;
