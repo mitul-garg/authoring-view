@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { TreeView, TreeItem } from "@mui/lab";
 import { BsChevronRight, BsChevronDown } from "react-icons/bs";
@@ -10,6 +10,16 @@ import { connect } from "react-redux";
 import { ADD_LEAF, ADD_CONTAINER } from "../../redux/actions";
 
 const TreeViewTab = ({ containers, dispatch }) => {
+  const clickHandler = useCallback((event) => {
+    event.stopPropagation();
+    if (event.target instanceof Element) {
+      const isIcon = !!event.target.closest(".MuiTreeItem-iconContainer");
+      if (isIcon) {
+        return;
+      }
+    }
+  }, []);
+
   const renderTree = (nodes) => {
     const isParent = Array.isArray(nodes.children);
     if (!isParent)
@@ -26,7 +36,7 @@ const TreeViewTab = ({ containers, dispatch }) => {
         key={nodes.id}
         nodeId={nodes.id}
         label={
-          <div className="parent-container">
+          <div className="parent-container" onClick={clickHandler}>
             {nodes.title}
             {/* {count} */}
             {nodes.id !== "root" && (
@@ -40,9 +50,9 @@ const TreeViewTab = ({ containers, dispatch }) => {
             {nodes.id === "root" && (
               <AiOutlinePlus
                 className="plus-icon"
-                onClick={() =>
-                  dispatch({ type: ADD_CONTAINER, payload: { id: nodes.id } })
-                }
+                onClick={() => {
+                  dispatch({ type: ADD_CONTAINER, payload: { id: nodes.id } });
+                }}
               />
             )}
           </div>
@@ -60,7 +70,7 @@ const TreeViewTab = ({ containers, dispatch }) => {
       defaultExpanded={["root"]}
       defaultExpandIcon={<BsChevronRight />}
       sx={{
-        height: 400,
+        height: window.outerHeight,
         flexGrow: 1,
         maxWidth: 300,
         overflowY: "auto",
