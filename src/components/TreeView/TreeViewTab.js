@@ -2,14 +2,14 @@ import React, { useCallback } from "react";
 
 import { TreeView, TreeItem } from "@mui/lab";
 import { BsChevronRight, BsChevronDown } from "react-icons/bs";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineFolderAdd } from "react-icons/ai";
 
 import "./styles.css";
 
 import { connect } from "react-redux";
 import { ADD_LEAF, ADD_CONTAINER } from "../../redux/actions";
 
-const TreeViewTab = ({ containers, dispatch }) => {
+const TreeViewTab = ({ containers, dispatch, count }) => {
   const clickHandler = useCallback((event) => {
     event.stopPropagation();
     if (event.target instanceof Element) {
@@ -38,23 +38,22 @@ const TreeViewTab = ({ containers, dispatch }) => {
         label={
           <div className="parent-container" onClick={clickHandler}>
             {nodes.title}
-            {/* {count} */}
-            {nodes.id !== "root" && (
-              <AiOutlinePlus
-                className="plus-icon"
-                onClick={() =>
-                  dispatch({ type: ADD_LEAF, payload: { id: nodes.id } })
-                }
-              />
-            )}
-            {nodes.id === "root" && (
-              <AiOutlinePlus
-                className="plus-icon"
-                onClick={() => {
-                  dispatch({ type: ADD_CONTAINER, payload: { id: nodes.id } });
-                }}
-              />
-            )}
+            {
+              <div className="icon-container">
+                <AiOutlinePlus
+                  className="plus-icon"
+                  onClick={() =>
+                    dispatch({ type: ADD_LEAF, payload: { id: nodes.id } })
+                  }
+                />
+                <AiOutlineFolderAdd
+                  className="folder-plus-icon"
+                  onClick={() =>
+                    dispatch({ type: ADD_CONTAINER, payload: { id: nodes.id } })
+                  }
+                />
+              </div>
+            }
           </div>
         }
       >

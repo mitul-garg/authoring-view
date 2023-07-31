@@ -4,6 +4,16 @@
   place-items: center;
 }
 
+.icon-container {
+  display: flex;
+  place-items: center;
+  gap: 10px;
+}
+
 .plus-icon {
   font-size: 15px;
+}
+
+.folder-plus-icon {
+  font-size: 18px;
 }

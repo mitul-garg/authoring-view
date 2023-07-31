@@ -6,16 +6,15 @@ export const reducer = (state, action) => {
     const newCount = state.count + 1;
     const newNode = {
       id: state.count + "",
-      title: "Container " + state.count,
+      title: "Leaf " + state.count,
     };
 
     let newContainers = { ...state.containers };
 
-    for (let i = 0; i < newContainers.children.length; i++) {
-      if (newContainers.children[i].id === id) {
-        newContainers.children[i].children.push(newNode);
-        break;
-      }
+    if (id === "root") {
+      newContainers.children.push(newNode);
+    } else {
+      insert(newContainers, newNode, id);
     }
 
     localStorage.setItem(
@@ -30,6 +29,7 @@ export const reducer = (state, action) => {
   }
 
   if (action.type === ADD_CONTAINER) {
+    const id = action.payload.id;
     const newCount = state.count + 1;
     const newNode = {
       id: state.count + "",
@@ -39,7 +39,11 @@ export const reducer = (state, action) => {
 
     let newContainers = { ...state.containers };
 
-    newContainers.children.push(newNode);
+    if (id === "root") {
+      newContainers.children.push(newNode);
+    } else {
+      insert(newContainers, newNode, id);
+    }
 
     localStorage.setItem(
       "state",
@@ -53,4 +57,19 @@ export const reducer = (state, action) => {
   }
 
   return { ...state };
+};
+
+const insert = (containers, node, id) => {
+  if (containers.id === id) {
+    containers.children.push(node);
+    return true;
+  }
+
+  if (containers.children != null) {
+    containers.children.forEach((obj) => {
+      if (insert(obj, node, id)) return true;
+    });
+  }
+
+  return false;
 };
