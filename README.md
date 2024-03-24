@@ -1,1 +1,1 @@
-[Visit Website](https://mitul-garg-authoring-view.netlify.app/)
+[Visit the Website](https://mitul-garg-authoring-view.netlify.app/)
